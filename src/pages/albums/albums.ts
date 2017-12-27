@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SubredditsProvider, Subreddit } from '../../providers/subreddits/subreddits';
 
 /**
  * Generated class for the AlbumsPage page.
@@ -14,12 +15,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'albums.html',
 })
 export class AlbumsPage {
+  subreddits: Subreddit[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private subredditsProvider: SubredditsProvider
+  ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AlbumsPage');
+    this.subreddits = this.subredditsProvider.subreddits;
   }
 
 }
