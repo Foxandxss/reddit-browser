@@ -4,7 +4,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-import { map } from 'rxjs/operators';
+import { of } from "rxjs/Observable/Of";
+import { map } from "rxjs/operators";
 
 @Injectable()
 export class UrlProcessorProvider {
@@ -12,17 +13,26 @@ export class UrlProcessorProvider {
     {
       name: "gfycat",
       detect: /gfycat\.com.*/,
-      convert: (url) => {
+      convert: url => {
         var name = this.gfyUrlToId(url);
         if (!name) return false;
 
-        return this.http.get(`https://gfycat.com/cajax/get/${name}`).pipe(map((r: any) => {
-          // console.log(r);
-          return {
-            webmUrl: r.gfyItem.webmUrl,
-            mp4Url: r.gfyItem.mp4Url
-          }
-        }));
+        return this.http.get(`https://gfycat.com/cajax/get/${name}`).pipe(
+          map((r: any) => {
+            // console.log(r);
+            return {
+              webmUrl: r.gfyItem.webmUrl,
+              mp4Url: r.gfyItem.mp4Url
+            };
+          })
+        );
+      }
+    },
+    {
+      name: "imageExtension",
+      detect: /\.(png|jpg|jpeg|gif|bmp)$/,
+      convert: function(url) {
+        return of(url);
       }
     }
   ];
@@ -30,15 +40,15 @@ export class UrlProcessorProvider {
   process(url) {
     const keys = Object.keys(this.convertors);
     for (var i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        const convertor = this.convertors[key];
-        if (url.match(convertor.detect)) {
-            return convertor.convert(url);
-        }
+      const key = keys[i];
+      const convertor = this.convertors[key];
+      if (url.match(convertor.detect)) {
+        return convertor.convert(url);
+      }
     }
     // embedit.unsupported(url);
     // embedFunc(null);
-}
+  }
 
   private gfyUrlToId(url) {
     //https://gfycat.com/cajax/get/ScaryGrizzledComet
