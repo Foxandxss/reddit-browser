@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SubredditsProvider } from '../subreddits/subreddits';
 import { Observable } from 'rxjs/Observable';
-import { forkJoin } from 'rxjs/Observable/forkJoin';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { map, mergeMap } from 'rxjs/operators';
 
 import { UrlProcessorProvider } from '../url-processor/url-processor';

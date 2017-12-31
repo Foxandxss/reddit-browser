@@ -3,7 +3,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs/Observable/Of';
+import { of } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators';
 
 import { MediaKind } from '../../models/media';
