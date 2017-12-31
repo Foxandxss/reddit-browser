@@ -1,18 +1,18 @@
-import { NgModule, ErrorHandler } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
-import { BrowserModule } from "@angular/platform-browser";
-import { IonicApp, IonicModule, IonicErrorHandler } from "ionic-angular";
-import { MyApp } from "./app.component";
+import { NgModule, ErrorHandler } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { MyApp } from './app.component';
 
-import { MediaPageModule } from "../pages/media/media.module";
-import { AlbumsPageModule } from "../pages/albums/albums.module";
-import { TabsPage } from "../pages/tabs/tabs";
+import { MediaPageModule } from '../pages/media/media.module';
+import { AlbumsPageModule } from '../pages/albums/albums.module';
+import { TabsPage } from '../pages/tabs/tabs';
 
-import { StatusBar } from "@ionic-native/status-bar";
-import { SplashScreen } from "@ionic-native/splash-screen";
-import { SubredditsProvider } from "../providers/subreddits/subreddits";
-import { MediaFetcherProvider } from "../providers/media-fetcher/media-fetcher";
-import { UrlProcessorProvider } from "../providers/url-processor/url-processor";
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { SubredditsProvider } from '../providers/subreddits/subreddits';
+import { MediaFetcherProvider } from '../providers/media-fetcher/media-fetcher';
+import { UrlProcessorProvider } from '../providers/url-processor/url-processor';
 
 @NgModule({
   declarations: [MyApp, TabsPage],

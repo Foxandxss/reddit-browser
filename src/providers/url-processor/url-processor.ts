@@ -1,17 +1,18 @@
 // This service is heavily based on redditp's embedit. Kudos to them
 // https://github.com/ubershmekel/redditp
 
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { of } from 'rxjs/Observable/Of';
+import { map } from 'rxjs/operators';
 
-import { of } from "rxjs/Observable/Of";
-import { map } from "rxjs/operators";
+import { MediaKind } from '../../models/media';
 
 @Injectable()
 export class UrlProcessorProvider {
   private convertors = [
     {
-      name: "gfycat",
+      name: 'gfycat',
       detect: /gfycat\.com.*/,
       convert: url => {
         var name = this.gfyUrlToId(url);
@@ -22,17 +23,18 @@ export class UrlProcessorProvider {
             // console.log(r);
             return {
               webmUrl: r.gfyItem.webmUrl,
-              mp4Url: r.gfyItem.mp4Url
+              mp4Url: r.gfyItem.mp4Url,
+              kind: MediaKind.video
             };
           })
         );
       }
     },
     {
-      name: "imageExtension",
+      name: 'imageExtension',
       detect: /\.(png|jpg|jpeg|gif|bmp)$/,
       convert: function(url) {
-        return of(url);
+        return of({ url: url, kind: MediaKind.image });
       }
     }
   ];
