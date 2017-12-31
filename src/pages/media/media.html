@@ -1,0 +1,11 @@
+<ion-content>
+  <ion-slides>
+    <ion-slide *ngFor="let m of media | async">
+      <!-- <img [src]="m"> -->
+      <video autoplay playsinline muted loop poster="true">
+        <source [src]="m.webmUrl">
+        <source [src]="m.mp4Url">
+      </video>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

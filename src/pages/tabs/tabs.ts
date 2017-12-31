@@ -1,17 +1,14 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
-import { ImagesPage } from '../images/images';
-import { AlbumsPage } from '../albums/albums';
+import { MediaPage } from "../media/media";
+import { AlbumsPage } from "../albums/albums";
 
 @Component({
-  templateUrl: 'tabs.html'
+  templateUrl: "tabs.html"
 })
 export class TabsPage {
-
-  imagesTab = ImagesPage;
+  mediaTab = MediaPage;
   albumsTab = AlbumsPage;
 
-  constructor() {
-
-  }
+  constructor() {}
 }

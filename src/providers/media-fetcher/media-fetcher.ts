@@ -8,7 +8,7 @@ import { map, mergeMap } from "rxjs/operators";
 import { UrlProcessorProvider } from "../url-processor/url-processor";
 
 @Injectable()
-export class ImageFetcherProvider {
+export class MediaFetcherProvider {
   url: string;
   images: string[] = [];
 
