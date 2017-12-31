@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { ImagesPage } from '../pages/images/images';
-import { AlbumsPage } from '../pages/albums/albums';
+import { ImagesPageModule } from '../pages/images/images.module';
+import { AlbumsPageModule } from '../pages/albums/albums.module';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,20 +18,18 @@ import { UrlProcessorProvider } from '../providers/url-processor/url-processor';
 @NgModule({
   declarations: [
     MyApp,
-    ImagesPage,
-    AlbumsPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    ImagesPageModule,
+    AlbumsPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ImagesPage,
-    AlbumsPage,
     TabsPage
   ],
   providers: [
