@@ -22,6 +22,5 @@ export class MediaPage {
 
   ionViewDidLoad() {
     this.media = this.mediaFetcher.fetchImages();
-    this.media.subscribe(r => console.log(r));
   }
 }

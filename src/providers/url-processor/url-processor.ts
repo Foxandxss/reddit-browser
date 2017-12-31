@@ -12,6 +12,35 @@ import { MediaKind } from '../../models/media';
 export class UrlProcessorProvider {
   private convertors = [
     {
+      name: 'imgurAlbums',
+      detect: /imgur\.com\/a\/.*/,
+      convert: function(url, embedFunc) {
+        return null;
+      }
+    },
+    {
+      name: 'imgurGifv',
+      detect: /imgur\.com.*(gif|gifv|mp4|webm)/,
+      convert: function(url) {
+        var no_extension = url.replace(/\.\w+$/, '');
+        var webmUrl = no_extension + '.webm';
+        var mp4Url = no_extension + '.mp4';
+        of({
+          webmUrl: webmUrl,
+          mp4Url: mp4Url,
+          kind: MediaKind.video
+        });
+      }
+    },
+    {
+      name: 'imgurNoExtension',
+      detect: /imgur\.com[^.]+/,
+      convert: function(url) {
+        var newUrl = url + '.jpg';
+        return of({ url: newUrl, kind: MediaKind.image });
+      }
+    },
+    {
       name: 'gfycat',
       detect: /gfycat\.com.*/,
       convert: url => {
@@ -48,8 +77,7 @@ export class UrlProcessorProvider {
         return convertor.convert(url);
       }
     }
-    // embedit.unsupported(url);
-    // embedFunc(null);
+    return null;
   }
 
   private gfyUrlToId(url) {

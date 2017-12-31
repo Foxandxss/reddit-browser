@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SubredditsProvider } from '../subreddits/subreddits';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/Observable/of';
 import { forkJoin } from 'rxjs/Observable/forkJoin';
 import { map, mergeMap } from 'rxjs/operators';
 
@@ -21,15 +20,13 @@ export class MediaFetcherProvider {
   ) {}
 
   fetchImages(): Observable<Media[]> {
-    // this.url = this.createUrl();
-    // return this.http.get(this.url).pipe(map(r => this.images = this.parseJson(r)));
-    return of([
-      'https://i.imgur.com/PJXywXZ.jpg',
-      'https://gfycat.com/gifs/detail/threadbareenchantedasianwaterbuffalo',
-      'https://gfycat.com/gifs/detail/darlingbountifulbetafish'
-    ]).pipe(
+    this.url = this.createUrl();
+    return this.http.get(this.url).pipe(
+      map(r => (this.images = this.parseJson(r))),
       mergeMap(urls => {
-        return forkJoin(...urls.map(url => this.urlProcessor.process(url)));
+        urls = urls.map(url => this.urlProcessor.process(url)); // process all urls
+        urls = urls.filter(url => url); // but strip the ones that are not supported
+        return forkJoin(...urls);
       })
     );
   }
