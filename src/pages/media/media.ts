@@ -11,7 +11,7 @@ import { Media, MediaKind } from '../../models/media';
   templateUrl: 'media.html'
 })
 export class MediaPage {
-  media: Observable<Media[]>;
+  media;
   kind = MediaKind;
 
   constructor(
@@ -21,6 +21,8 @@ export class MediaPage {
   ) {}
 
   ionViewDidLoad() {
-    this.media = this.mediaFetcher.fetchImages();
+    // this.media = this.mediaFetcher.fetchImages();
+    // this.mediaFetcher.fetchImages().subscribe(m => console.log(m));
+    this.mediaFetcher.fetchImages().subscribe(m => this.media = m);
   }
 }

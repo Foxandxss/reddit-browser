@@ -1,12 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SubredditsProvider } from '../subreddits/subreddits';
-import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { map, mergeMap } from 'rxjs/operators';
 
 import { UrlProcessorProvider } from '../url-processor/url-processor';
-import { Media } from '../../models/media';
 
 @Injectable()
 export class MediaFetcherProvider {
@@ -19,23 +17,25 @@ export class MediaFetcherProvider {
     private urlProcessor: UrlProcessorProvider
   ) {}
 
-  fetchImages(): Observable<Media[]> {
-    this.url = this.createUrl();
-    return this.http.get(this.url).pipe(
-      map(r => (this.images = this.parseJson(r))),
-      mergeMap(urls => {
-        urls = urls.map(url => this.urlProcessor.process(url)); // process all urls
-        urls = urls.filter(url => url); // but strip the ones that are not supported
-        return forkJoin(...urls);
-      })
-    );
+  fetchImages() {
+    return this.createUrl().pipe(
+      map((url) => {
+        return this.http.get(url).pipe(
+          map(r => this.images = this.parseJson(r)),
+          mergeMap(urls => {
+            urls = urls.map(url => this.urlProcessor.process(url))
+            urls = urls.filter(url => url);
+            return forkJoin(...urls);
+          })
+        )
+      }));
   }
 
   private createUrl() {
-    const subreddits = this.subredditsProvider.subreddits
-      .map(sr => sr['name'])
-      .join('+');
-    return `https://www.reddit.com/r/${subreddits}.json?limit=10`;
+    return this.subredditsProvider.getAll().pipe(map(subreddits => {
+      const subredditsString = subreddits.map(sr => sr['name']).join('+')
+      return `https://www.reddit.com/r/${subredditsString}.json?limit=10`;
+    }));
   }
 
   private parseJson(result) {

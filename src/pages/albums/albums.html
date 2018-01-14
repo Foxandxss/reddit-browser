@@ -1,8 +1,13 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>albums</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-title>Albums</ion-title>
+    <ion-buttons end>
+      <button (click)="add()" ion-button icon-only color="royal">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 
 </ion-header>
 
@@ -15,7 +20,7 @@
         {{album.name}}
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button color="danger">
+        <button ion-button color="danger" (click)="delete(album)">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>

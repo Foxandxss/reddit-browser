@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs/observable/of';
 import { map } from 'rxjs/operators';
 
-import { MediaKind } from '../../models/media';
+import { MediaKind, Media } from '../../models/media';
 
 @Injectable()
 export class UrlProcessorProvider {
@@ -68,7 +68,7 @@ export class UrlProcessorProvider {
     }
   ];
 
-  process(url) {
+  process(url): Media | null {
     const keys = Object.keys(this.convertors);
     for (var i = 0; i < keys.length; i++) {
       const key = keys[i];
